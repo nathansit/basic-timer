@@ -1,0 +1,41 @@
+#!/bin/bash
+# Custom timer created by CubicHarmony
+
+#time to run is first argument in minutes
+TIME=$1
+## stores integer for time
+## stores last char for expansion of time
+#LASTCHAR=${1: -1}
+ALARM=~/music/alarmCalm.mp3
+
+# #### if statement to assign timer amount, FIXME
+#if [ $LASTCHAR='s' ]
+#then
+#	$LASTCHAR=minutes
+#fi
+# PREVIOUS ran using termdown
+#termdown $TIME && mplayer $ALARM &> /dev/null &;
+# run if termdown if possible, else use sleep
+termdown $TIME || sleep $TIME
+(mplayer $ALARM &) &> /dev/null;
+# display break prompt
+# surpressing error prompts TODO, fix the transient parent issue later
+zenity --info --ellipsize --title="Time's up!" \
+--text="It has been $TIME. Time to take a break? \nThe session ended at: `date +%H:%M`" &> /dev/null
+## response, 1 if no, 0 for yes
+#REPLY=$?
+#echo reply is: $REPLY
+## if reply is no, end program
+#if [ $REPLY -eq 1 ]
+#then
+#	exit 1
+#fi
+#
+## Amount of time for break
+#BREAKTIME=$(zenity --entry --title="Set break time" \
+#	--text="Enter amount of time to break"); > /dev/null
+## Run breaktime and display prompt
+#sleep $BREAKTIME && mplayer $ALARM &> /dev/null;
+#zenity --info --ellipsize --title="Break's over!" \
+#--text="Time to get back to work!" &> /dev/null
+#timer $TIME
