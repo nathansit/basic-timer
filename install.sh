@@ -4,6 +4,11 @@
 DESTDIR=~/bin/
 # Alarm location
 ALARMDIR=~/Music/basic-timer-alarm/
+
+# Check for dependencies
+type termdown &>/dev/null || echo "termdown not installed"
+type zenity &>/dev/null || echo "zenity not installed"
+
 # Allows anyone to execute
 PERMISSIONS=755
 # Give permissions
