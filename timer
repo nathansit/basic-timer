@@ -3,6 +3,7 @@
 
 #time to run is first argument in minutes
 TIME=$1
+CURTIME=`date +%H:%M`
 ## stores integer for time
 ## stores last char for expansion of time
 #LASTCHAR=${1: -1}
@@ -18,10 +19,13 @@ ALARM=~/music/alarmCalm.mp3
 # run if termdown if possible, else use sleep
 termdown $TIME || sleep $TIME
 (mplayer $ALARM &) &> /dev/null;
+# Print out current time on completion
+echo "Session ended at $CURTIME"
 # display break prompt
 # surpressing error prompts TODO, fix the transient parent issue later
 zenity --info --ellipsize --title="Time's up!" \
---text="It has been $TIME. Time to take a break? \nThe session ended at: `date +%H:%M`" &> /dev/null
+--text="It has been $TIME. Time to take a break? \nThe session ended at: $CURTIME" &> /dev/null
+
 ## response, 1 if no, 0 for yes
 #REPLY=$?
 #echo reply is: $REPLY
